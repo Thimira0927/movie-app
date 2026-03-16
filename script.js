@@ -53,9 +53,7 @@ class="trailer-btn">▶ Watch Trailer</a>
 `;
 
 }else{
-
 error.innerHTML = "❌ Movie not found";
-
 }
 
 })
@@ -80,24 +78,15 @@ searchMovie();
 });
 
 
-/* TRENDING MOVIES */
+/* LOAD MOVIES FUNCTION */
 
-function loadTrendingMovies(){
-
-const movies = [
-"avatar",
-"avengers",
-"doctor strange",
-"spiderman",
-"interstellar",
-"joker"
-];
+function loadMovies(movieList){
 
 const container = document.getElementById("trendingMovies");
 
 container.innerHTML = "";
 
-movies.forEach(movie => {
+movieList.forEach(movie => {
 
 fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 .then(res => res.json())
@@ -126,7 +115,56 @@ container.innerHTML += `
 }
 
 
-/* LOAD TRENDING MOVIES */
+/* TRENDING MOVIES */
+
+function loadTrendingMovies(){
+
+const movies = [
+"avatar",
+"avengers",
+"doctor strange",
+"spiderman",
+"interstellar",
+"joker"
+];
+
+loadMovies(movies);
+
+}
+
+
+/* MOVIE CATEGORIES */
+
+function loadCategory(type){
+
+let movies = [];
+
+if(type === "trending"){
+movies = ["avatar","avengers","joker","spiderman","interstellar","batman"];
+}
+
+if(type === "popular"){
+movies = ["titanic","inception","gladiator","dark knight","fight club","matrix"];
+}
+
+if(type === "top"){
+movies = ["shawshank redemption","godfather","pulp fiction","forrest gump","lord of the rings"];
+}
+
+if(type === "action"){
+movies = ["john wick","mad max","mission impossible","terminator","die hard"];
+}
+
+if(type === "comedy"){
+movies = ["the mask","hangover","superbad","home alone","ted","mr bean"];
+}
+
+loadMovies(movies);
+
+}
+
+
+/* LOAD TRENDING MOVIES ON START */
 
 loadTrendingMovies();
 
