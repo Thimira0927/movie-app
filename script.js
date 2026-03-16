@@ -68,6 +68,7 @@ error.innerHTML = "⚠️ Error fetching movie data";
 
 }
 
+
 /* ENTER KEY SEARCH */
 
 document.getElementById("movieInput").addEventListener("keypress", function(event){
@@ -77,6 +78,7 @@ searchMovie();
 }
 
 });
+
 
 /* TRENDING MOVIES */
 
@@ -112,6 +114,7 @@ container.innerHTML += `
 <p>${data.Title}</p>
 
 </div>
+
 `;
 
 }
@@ -122,9 +125,11 @@ container.innerHTML += `
 
 }
 
+
 /* LOAD TRENDING MOVIES */
 
 loadTrendingMovies();
+
 
 /* OPEN MOVIE MODAL */
 
@@ -137,7 +142,9 @@ fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apiKey}`)
 const modal = document.getElementById("movieModal");
 const details = document.getElementById("modalDetails");
 
-details.innerHTML = ` <img src="${data.Poster}">
+details.innerHTML = `
+
+<img src="${data.Poster}" alt="${data.Title}">
 
 <h2>${data.Title}</h2>
 
@@ -153,6 +160,7 @@ details.innerHTML = ` <img src="${data.Poster}">
 <a href="https://www.youtube.com/results?search_query=${data.Title}+trailer"
 target="_blank"
 class="trailer-btn">▶ Watch Trailer</a>
+
 `;
 
 modal.style.display = "block";
@@ -161,10 +169,32 @@ modal.style.display = "block";
 
 }
 
+
 /* CLOSE MODAL */
 
-document.querySelector(".close").onclick = function(){
+const closeBtn = document.querySelector(".close");
+
+if(closeBtn){
+
+closeBtn.onclick = function(){
 
 document.getElementById("movieModal").style.display = "none";
+
+};
+
+}
+
+
+/* CLOSE MODAL WHEN CLICK OUTSIDE */
+
+window.onclick = function(event){
+
+const modal = document.getElementById("movieModal");
+
+if(event.target === modal){
+
+modal.style.display = "none";
+
+}
 
 };
