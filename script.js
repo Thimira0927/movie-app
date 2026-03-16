@@ -29,6 +29,7 @@ loading.style.display = "none";
 if(data.Response === "True"){
 
 result.innerHTML = `
+
 <div class="movie-card">
 
 <img src="${data.Poster}" alt="${data.Title}">
@@ -73,47 +74,4 @@ searchMovie();
 
 });
 
-
-/* TRENDING MOVIES */
-
-function loadTrendingMovies(){
-
-const movies = [
-"avatar",
-"avengers",
-"doctor strange",
-"spiderman",
-"interstellar",
-"joker"
-];
-
-const container = document.getElementById("trendingMovies");
-
-container.innerHTML = "";
-
-movies.forEach(movie => {
-
-fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
-.then(res => res.json())
-.then(data => {
-
-if(data.Response === "True" && data.Poster !== "N/A"){
-
-container.innerHTML += `
-<div class="trending-card">
-<img src="${data.Poster}" alt="${data.Title}">
-<p>${data.Title}</p>
-</div>
-`;
-
-}
-
-});
-
-});
-
-}
-
-/* LOAD TRENDING MOVIES WHEN PAGE LOAD */
-
-loadTrendingMovies();
+/* TRENDING MOVIE*
