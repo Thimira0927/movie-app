@@ -3,10 +3,15 @@ const apiKey = "176d2a6b";
 function searchMovie(){
 
 const movie = document.getElementById("movieInput").value;
-const result = document.getElementById("movieResult");
 
-// Loading message
-result.innerHTML = "Loading...";
+const result = document.getElementById("movieResult");
+const loading = document.getElementById("loading");
+const error = document.getElementById("error");
+
+error.innerHTML = "";
+result.innerHTML = "";
+
+loading.style.display = "block";
 
 fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 
@@ -14,21 +19,33 @@ fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 
 .then(data => {
 
+loading.style.display = "none";
+
 if(data.Response == "True"){
 
 result.innerHTML = `
+
 <div class="movie-card">
+
 <img src="${data.Poster}">
+
 <h2>${data.Title}</h2>
-<p>Year: ${data.Year}</p>
-<p>IMDb Rating: ${data.imdbRating}</p>
+
+<div class="rating">⭐ IMDb ${data.imdbRating}</div>
+
+<p><b>Year:</b> ${data.Year}</p>
+<p><b>Genre:</b> ${data.Genre}</p>
+<p><b>Director:</b> ${data.Director}</p>
+<p><b>Actors:</b> ${data.Actors}</p>
+
 <p>${data.Plot}</p>
+
 </div>
 `;
 
 }else{
 
-result.innerHTML = "Movie not found";
+error.innerHTML = "Movie not found";
 
 }
 
@@ -36,15 +53,14 @@ result.innerHTML = "Movie not found";
 
 .catch(error => {
 
-result.innerHTML = "Error fetching movie data";
-console.log(error);
+loading.style.display = "none";
+
+error.innerHTML = "Error fetching movie data";
 
 });
 
 }
 
-
-// Enter key support
 document.getElementById("movieInput").addEventListener("keypress", function(event){
 
 if(event.key === "Enter"){
