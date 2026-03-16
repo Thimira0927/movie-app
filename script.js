@@ -177,9 +177,7 @@ const closeBtn = document.querySelector(".close");
 if(closeBtn){
 
 closeBtn.onclick = function(){
-
 document.getElementById("movieModal").style.display = "none";
-
 };
 
 }
@@ -192,9 +190,30 @@ window.onclick = function(event){
 const modal = document.getElementById("movieModal");
 
 if(event.target === modal){
-
 modal.style.display = "none";
-
 }
 
 };
+
+
+/* NETFLIX STYLE SLIDER */
+
+function scrollLeft(){
+
+document.getElementById("trendingMovies")
+.scrollBy({
+left:-400,
+behavior:"smooth"
+});
+
+}
+
+function scrollRight(){
+
+document.getElementById("trendingMovies")
+.scrollBy({
+left:400,
+behavior:"smooth"
+});
+
+}
