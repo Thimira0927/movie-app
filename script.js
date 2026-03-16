@@ -31,7 +31,7 @@ if(data.Response === "True"){
 result.innerHTML = `
 <div class="movie-card">
 
-<img src="${data.Poster}" alt="Movie Poster">
+<img src="${data.Poster}" alt="${data.Title}">
 
 <h2>${data.Title}</h2>
 
@@ -89,16 +89,21 @@ const movies = [
 
 const container = document.getElementById("trendingMovies");
 
+container.innerHTML = "";
+
 movies.forEach(movie => {
 
 fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 .then(res => res.json())
 .then(data => {
 
-if(data.Response === "True"){
+if(data.Response === "True" && data.Poster !== "N/A"){
 
 container.innerHTML += `
-<img src="${data.Poster}" title="${data.Title}">
+<div class="trending-card">
+<img src="${data.Poster}" alt="${data.Title}">
+<p>${data.Title}</p>
+</div>
 `;
 
 }
