@@ -21,7 +21,7 @@ fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 
 loading.style.display = "none";
 
-if(data.Response == "True"){
+if(data.Response === "True"){
 
 result.innerHTML = `
 
@@ -45,17 +45,17 @@ result.innerHTML = `
 
 }else{
 
-error.innerHTML = "Movie not found";
+error.innerHTML = "❌ Movie not found";
 
 }
 
 })
 
-.catch(error => {
+.catch(err => {
 
 loading.style.display = "none";
 
-error.innerHTML = "Error fetching movie data";
+error.innerHTML = "⚠️ Error fetching movie data";
 
 });
 
@@ -64,9 +64,7 @@ error.innerHTML = "Error fetching movie data";
 document.getElementById("movieInput").addEventListener("keypress", function(event){
 
 if(event.key === "Enter"){
-
 searchMovie();
-
 }
 
 });
