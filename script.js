@@ -81,7 +81,7 @@ function loadTrendingMovies(){
 const movies = [
 "avatar",
 "avengers",
-"batman",
+"doctor strange",
 "spiderman",
 "interstellar",
 "joker"
