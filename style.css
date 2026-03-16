@@ -74,6 +74,62 @@ width:100%;
 border-radius:10px;
 margin-bottom:10px;
 }
+/* NETFLIX STYLE SLIDER */
+
+.slider{
+position:relative;
+display:flex;
+align-items:center;
+margin-top:20px;
+}
+
+.movie-row{
+display:flex;
+overflow-x:auto;
+scroll-behavior:smooth;
+gap:15px;
+padding:10px;
+}
+
+.movie-row::-webkit-scrollbar{
+display:none;
+}
+
+.trending-card{
+min-width:180px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.trending-card img{
+width:100%;
+border-radius:10px;
+}
+
+.trending-card:hover{
+transform:scale(1.1);
+}
+
+/* SCROLL BUTTON */
+
+.scroll-btn{
+position:absolute;
+background:rgba(0,0,0,0.7);
+color:white;
+border:none;
+font-size:25px;
+padding:10px;
+cursor:pointer;
+z-index:10;
+}
+
+.left{
+left:0;
+}
+
+.right{
+right:0;
+}
 
 /* TRENDING CARD */
 
