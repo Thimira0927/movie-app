@@ -74,6 +74,14 @@ width:100%;
 border-radius:10px;
 margin-bottom:10px;
 }
+.trending-card{
+text-align:center;
+}
+
+.trending-card p{
+margin-top:8px;
+font-size:14px;
+}
 
 /* RATING BADGE */
 
