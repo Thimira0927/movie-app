@@ -181,6 +181,16 @@ transition:0.3s;
 .trailer-btn:hover{
 background:#dc2626;
 }
+#movieResult{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.movie-card{
+cursor:pointer;
+}
 
 /* MOBILE RESPONSIVE */
 
