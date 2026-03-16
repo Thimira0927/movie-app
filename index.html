@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Movie Search App</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -32,7 +34,15 @@ placeholder="Enter movie name">
 
 <h2>🔥 Trending Movies</h2>
 
-<div id="trendingMovies" class="movie-grid"></div>
+<div class="slider">
+
+<button class="scroll-btn left" onclick="scrollLeft()">❮</button>
+
+<div id="trendingMovies" class="movie-row"></div>
+
+<button class="scroll-btn right" onclick="scrollRight()">❯</button>
+
+</div>
 
 
 <!-- LOADING -->
