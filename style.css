@@ -6,22 +6,15 @@ text-align:center;
 padding:40px;
 }
 
-/* Title */
-h1{
-margin-bottom:20px;
-}
-
-/* Search box */
 .search-box{
 margin-bottom:30px;
 }
 
 input{
 padding:10px;
-width:200px;
+width:220px;
 border:none;
 border-radius:5px;
-outline:none;
 }
 
 button{
@@ -31,30 +24,21 @@ color:white;
 border:none;
 border-radius:5px;
 cursor:pointer;
-transition:0.3s;
 }
 
 button:hover
 
-/* Result area */
 #movieResult{
 margin-top:30px;
 }
 
-/* Movie card */
 .movie-card{
 background:#1e293b;
 padding:20px;
 border-radius:10px;
-width:300px;
+width:320px;
 margin:auto;
 box-shadow:0 10px 20px rgba(0,0,0,0.5);
-transition:transform 0.3s;
-}
-
-/* Hover animation */
-.movie-card:hover{
-transform:scale(1.05);
 }
 
 .movie-card img{
@@ -63,35 +47,34 @@ border-radius:10px;
 margin-bottom:10px;
 }
 
-.movie-card h2{
-margin:10px 0;
+.rating{
+background:#facc15;
+color:black;
+padding:5px 10px;
+border-radius:5px;
+display:inline-block;
+margin-bottom:10px;
+font-weight:bold;
 }
 
-.movie-card p{
-font-size:14px;
-line-height:1.5;
-}
-
-/* Error message */
 .error{
 color:red;
 font-weight:bold;
 margin-top:20px;
 }
 
-/* Mobile responsive */
 @media (max-width:600px){
 
 body{
 padding:20px;
 }
 
-input{
-width:150px;
-}
-
 .movie-card{
 width:90%;
+}
+
+input{
+width:150px;
 }
 
 }
