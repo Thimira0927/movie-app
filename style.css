@@ -95,6 +95,28 @@ font-weight:bold;
 margin-top:20px;
 }
 
+/* TRENDING MOVIES GRID */
+
+.movie-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px;
+margin-top:30px;
+padding:20px;
+}
+
+.movie-grid img{
+width:100%;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.movie-grid img:hover{
+transform:scale(1.08);
+box-shadow:0 10px 20px rgba(0,0,0,0.6);
+}
+
 /* MOBILE RESPONSIVE */
 
 @media (max-width:600px){
@@ -114,6 +136,10 @@ width:150px;
 .search-box{
 flex-direction:column;
 align-items:center;
+}
+
+.movie-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
 }
