@@ -74,6 +74,9 @@ width:100%;
 border-radius:10px;
 margin-bottom:10px;
 }
+
+/* TRENDING CARD */
+
 .trending-card{
 text-align:center;
 }
@@ -124,6 +127,7 @@ transition:0.3s;
 transform:scale(1.08);
 box-shadow:0 10px 20px rgba(0,0,0,0.6);
 }
+
 /* MODAL */
 
 .modal{
@@ -158,6 +162,24 @@ color:white;
 float:right;
 font-size:28px;
 cursor:pointer;
+}
+
+/* TRAILER BUTTON */
+
+.trailer-btn{
+display:inline-block;
+margin-top:15px;
+padding:10px 18px;
+background:#ef4444;
+color:white;
+text-decoration:none;
+border-radius:6px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.trailer-btn:hover{
+background:#dc2626;
 }
 
 /* MOBILE RESPONSIVE */
