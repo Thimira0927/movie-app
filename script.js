@@ -1,5 +1,7 @@
 const apiKey = "176d2a6b";
 
+/* SEARCH MOVIE */
+
 function searchMovie(){
 
 const movie = document.getElementById("movieInput").value.trim();
@@ -61,6 +63,8 @@ error.innerHTML = "⚠️ Error fetching movie data";
 
 }
 
+/* ENTER KEY SEARCH */
+
 document.getElementById("movieInput").addEventListener("keypress", function(event){
 
 if(event.key === "Enter"){
@@ -68,3 +72,43 @@ searchMovie();
 }
 
 });
+
+
+/* TRENDING MOVIES */
+
+function loadTrendingMovies(){
+
+const movies = [
+"avatar",
+"avengers",
+"batman",
+"spiderman",
+"interstellar",
+"joker"
+];
+
+const container = document.getElementById("trendingMovies");
+
+movies.forEach(movie => {
+
+fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
+.then(res => res.json())
+.then(data => {
+
+if(data.Response === "True"){
+
+container.innerHTML += `
+<img src="${data.Poster}" title="${data.Title}">
+`;
+
+}
+
+});
+
+});
+
+}
+
+/* LOAD TRENDING MOVIES WHEN PAGE LOAD */
+
+loadTrendingMovies();
