@@ -14,8 +14,81 @@
 
 <body>
 
+<h1>🎬 Movie Search App</h1><!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movie Search App</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
 <h1>🎬 Movie Search App</h1>
 
+<!-- SEARCH BOX -->
+
+<div class="search-box">
+
+<input 
+type="text" 
+id="movieInput" 
+placeholder="Enter movie name">
+
+<button onclick="searchMovie()">Search</button>
+
+</div>
+
+
+<!-- TRENDING MOVIES -->
+
+<h2>🔥 Trending Movies</h2>
+
+<div id="trendingMovies" class="movie-grid"></div>
+
+
+<!-- LOADING -->
+
+<div id="loading" style="display:none;">Loading...</div>
+
+
+<!-- ERROR MESSAGE -->
+
+<div id="error" class="error"></div>
+
+
+<!-- MOVIE RESULT -->
+
+<div id="movieResult"></div>
+
+
+<!-- MOVIE MODAL -->
+
+<div id="movieModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<div id="modalDetails"></div>
+
+</div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
 <div class="search-box">
 
 <input 
