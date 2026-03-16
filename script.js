@@ -34,7 +34,7 @@ result.innerHTML = `
 
 }else{
 
-result.innerHTML = "Movie not found";
+result.innerHTML = `<p class="error">Movie not found</p>`;
 
 }
 
