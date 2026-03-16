@@ -44,6 +44,29 @@ margin-top:20px;
 font-size:18px;
 color:#facc15;
 }
+/* MOVIE CATEGORIES */
+
+.categories{
+margin:20px 0;
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.categories button{
+background:#2563eb;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.categories button:hover{
+background:#1d4ed8;
+}
 
 /* MOVIE RESULT */
 
