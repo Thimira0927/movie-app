@@ -26,8 +26,9 @@ border-radius:5px;
 cursor:pointer;
 }
 
-/* FIXED PART */
-button:hover
+button:hover{
+background:#1d4ed8;
+}
 
 #movieResult{
 margin-top:30px;
