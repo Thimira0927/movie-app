@@ -2,14 +2,12 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Movie Search App</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -28,18 +26,15 @@ placeholder="Enter movie name">
 <button onclick="searchMovie()">Search</button>
 
 </div>
+
 <!-- MOVIE CATEGORIES -->
 
 <div class="categories">
 
 <button onclick="loadCategory('trending')">🔥 Trending</button>
-
 <button onclick="loadCategory('popular')">⭐ Popular</button>
-
 <button onclick="loadCategory('top')">🏆 Top Rated</button>
-
 <button onclick="loadCategory('action')">💥 Action</button>
-
 <button onclick="loadCategory('comedy')">😂 Comedy</button>
 
 </div>
@@ -58,21 +53,23 @@ placeholder="Enter movie name">
 
 </div>
 
+<!-- ❤️ FAVORITES -->
+
+<h2>❤️ My Favorites</h2>
+
+<div id="favoriteMovies" class="movie-row"></div>
 
 <!-- LOADING -->
 
 <div id="loading" style="display:none;">Loading...</div>
 
-
 <!-- ERROR MESSAGE -->
 
 <div id="error" class="error"></div>
 
-
 <!-- MOVIE RESULT -->
 
 <div id="movieResult"></div>
-
 
 <!-- MOVIE MODAL -->
 
@@ -87,8 +84,6 @@ placeholder="Enter movie name">
 </div>
 
 </div>
-  
-
 
 <script src="script.js"></script>
 
