@@ -36,6 +36,10 @@ result.innerHTML = `
 
 <h2>${data.Title}</h2>
 
+<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
+❤️ Add to Favorites
+</button>
+
 <div class="rating">⭐ IMDb ${data.imdbRating}</div>
 
 <p><b>Year:</b> ${data.Year}</p>
@@ -99,7 +103,6 @@ container.innerHTML += `
 <div class="trending-card" onclick="openMovie('${data.Title}')">
 
 <img src="${data.Poster}" alt="${data.Title}">
-
 <p>${data.Title}</p>
 
 </div>
@@ -186,6 +189,10 @@ details.innerHTML = `
 
 <h2>${data.Title}</h2>
 
+<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
+❤️ Add to Favorites
+</button>
+
 <div class="rating">⭐ IMDb ${data.imdbRating}</div>
 
 <p><b>Year:</b> ${data.Year}</p>
@@ -255,3 +262,66 @@ behavior:"smooth"
 });
 
 }
+
+
+/******** ❤️ FAVORITES SYSTEM ********/
+
+function addToFavorites(title){
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+if(!favorites.includes(title)){
+favorites.push(title);
+localStorage.setItem("favorites", JSON.stringify(favorites));
+alert("✅ Added to Favorites");
+loadFavorites();
+}else{
+alert("⚠️ Already in Favorites");
+}
+
+}
+
+
+/* LOAD FAVORITES */
+
+function loadFavorites(){
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+const container = document.getElementById("favoriteMovies");
+
+if(!container) return;
+
+container.innerHTML = "";
+
+favorites.forEach(movie => {
+
+fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
+.then(res => res.json())
+.then(data => {
+
+if(data.Response === "True"){
+
+container.innerHTML += `
+
+<div class="trending-card" onclick="openMovie('${data.Title}')">
+
+<img src="${data.Poster}">
+<p>${data.Title}</p>
+
+</div>
+
+`;
+
+}
+
+});
+
+});
+
+}
+
+
+/* LOAD FAVORITES ON START */
+
+loadFavorites();
