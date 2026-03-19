@@ -31,7 +31,7 @@ error.innerHTML = "❌ Movie not found";
 }
 
 
-/* 🎬 CREATE CARD */
+/* 🎬 CREATE CARD (USED EVERYWHERE 🔥) */
 
 function createCard(data){
 return `
@@ -61,8 +61,8 @@ onclick="event.stopPropagation(); addToFavorites('${data.Title}')">
 function loadTrendingMovies(){
 
 const movies = ["avatar","avengers","joker","interstellar"];
-
 const container = document.getElementById("trendingMovies");
+
 container.innerHTML = "";
 
 movies.forEach(m=>{
@@ -73,12 +73,7 @@ fetch(`https://www.omdbapi.com/?t=${m}&apikey=${apiKey}`)
 
 if(d.Response==="True"){
 
-container.innerHTML += `
-<div class="trending-card" onclick="openMovie('${d.Title}')">
-<img src="${d.Poster}">
-<p>${d.Title}</p>
-</div>
-`;
+container.innerHTML += createCard(d); // 🔥 SAME DESIGN
 
 }
 
@@ -89,7 +84,7 @@ container.innerHTML += `
 }
 
 
-/* 🎬 OPEN MOVIE (FULL DETAILS 🔥) */
+/* 🎬 OPEN MOVIE */
 
 function openMovie(title){
 
@@ -114,6 +109,11 @@ document.getElementById("modalDetails").innerHTML = `
 
 <button class="fav-btn" onclick="addToFavorites('${d.Title}')">
 ❤️ Add to Favorites
+</button>
+
+<button class="fav-btn" style="background:#444;"
+onclick="removeFromFavorites('${d.Title}')">
+❌ Remove
 </button>
 
 <br>
@@ -176,7 +176,23 @@ alert("⚠️ Already added");
 }
 
 
-/* LOAD FAVORITES */
+/* ❌ REMOVE FAVORITE */
+
+function removeFromFavorites(title){
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+favorites = favorites.filter(movie => movie !== title);
+
+localStorage.setItem("favorites", JSON.stringify(favorites));
+
+alert("❌ Removed from Favorites");
+
+loadFavorites();
+}
+
+
+/* LOAD FAVORITES (FIXED 🔥) */
 
 function loadFavorites(){
 
@@ -195,12 +211,7 @@ fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 
 if(d.Response==="True"){
 
-container.innerHTML += `
-<div class="trending-card" onclick="openMovie('${d.Title}')">
-<img src="${d.Poster}">
-<p>${d.Title}</p>
-</div>
-`;
+container.innerHTML += createCard(d); // 🔥 SAME DESIGN
 
 }
 
