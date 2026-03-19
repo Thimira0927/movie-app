@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>🎬 Movie Search App</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <h1>🎬 Movie Search App</h1>
 
+<!-- 🔍 SEARCH -->
+
 <div class="search-box">
 <input type="text" id="movieInput" placeholder="Enter movie name">
 <button onclick="searchMovie()">Search</button>
 </div>
+
+<!-- 🎬 CATEGORIES -->
 
 <div class="categories">
 <button onclick="loadCategory('trending')">🔥 Trending</button>
@@ -24,29 +32,55 @@
 <button onclick="loadCategory('comedy')">😂 Comedy</button>
 </div>
 
-<h2>🔥 Trending Movies</h2>
+<!-- 🔥 TRENDING -->
+
+<h2 class="section-title">🔥 Trending Movies</h2>
 
 <div class="slider">
 <button class="scroll-btn left" onclick="scrollLeft()">❮</button>
+
 <div id="trendingMovies" class="movie-row"></div>
+
 <button class="scroll-btn right" onclick="scrollRight()">❯</button>
 </div>
 
-<h2>❤️ My Favorites</h2>
+<!-- ❤️ FAVORITES -->
+
+<h2 class="section-title">❤️ My Favorites</h2>
+
+<div class="slider">
+<button class="scroll-btn left" onclick="scrollFavLeft()">❮</button>
+
 <div id="favoriteMovies" class="movie-row"></div>
 
+<button class="scroll-btn right" onclick="scrollFavRight()">❯</button>
+</div>
+
+<!-- ⏳ LOADING -->
+
 <div id="loading" style="display:none;">Loading...</div>
+
+<!-- ❌ ERROR -->
+
 <div id="error" class="error"></div>
+
+<!-- 🎥 SEARCH RESULT -->
 
 <div id="movieResult"></div>
 
+<!-- 🎬 MODAL -->
+
 <div id="movieModal" class="modal">
 <div class="modal-content">
+
 <span class="close" onclick="closeModal()">&times;</span>
+
 <div id="modalDetails"></div>
+
 </div>
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
