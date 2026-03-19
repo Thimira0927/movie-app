@@ -1,6 +1,6 @@
 body{
 font-family:Arial;
-background:#0f172a;
+background:linear-gradient(to bottom,#0f172a,#020617);
 color:white;
 text-align:center;
 padding:40px;
@@ -17,24 +17,26 @@ flex-wrap:wrap;
 }
 
 input{
-padding:10px;
-width:220px;
+padding:12px;
+width:260px;
 border:none;
-border-radius:5px;
+border-radius:25px;
+outline:none;
 }
 
 button{
-padding:10px 15px;
+padding:12px 18px;
 background:#2563eb;
 color:white;
 border:none;
-border-radius:5px;
+border-radius:25px;
 cursor:pointer;
 transition:0.3s;
 }
 
 button:hover{
 background:#1d4ed8;
+transform:scale(1.05);
 }
 
 /* LOADING */
@@ -56,13 +58,13 @@ flex-wrap:wrap;
 }
 
 .categories button{
-background:#2563eb;
-padding:8px 14px;
-border-radius:6px;
+background:#1e40af;
+padding:8px 15px;
+border-radius:20px;
 }
 
 .categories button:hover{
-background:#1d4ed8;
+background:#3b82f6;
 }
 
 /* MOVIE RESULT GRID */
@@ -77,22 +79,41 @@ margin-top:30px;
 /* MOVIE CARD */
 
 .movie-card{
+position:relative;
 background:#1e293b;
-padding:20px;
-border-radius:10px;
-box-shadow:0 10px 20px rgba(0,0,0,0.5);
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
 transition:0.3s;
 cursor:pointer;
 }
 
 .movie-card:hover{
-transform:scale(1.05);
+transform:scale(1.08);
 }
+
+/* IMAGE */
 
 .movie-card img{
 width:100%;
-border-radius:10px;
-margin-bottom:10px;
+height:300px;
+object-fit:cover;
+}
+
+/* OVERLAY (NEW 🔥) */
+
+.movie-overlay{
+position:absolute;
+bottom:0;
+width:100%;
+padding:10px;
+background:linear-gradient(transparent,rgba(0,0,0,0.9));
+text-align:left;
+}
+
+.movie-overlay h4{
+margin:0;
+font-size:16px;
 }
 
 /* ❤️ FAVORITE BUTTON */
@@ -102,10 +123,10 @@ background:#e11d48;
 color:white;
 border:none;
 padding:6px 10px;
-margin:10px 0;
+margin-top:5px;
 border-radius:6px;
 cursor:pointer;
-font-size:14px;
+font-size:13px;
 }
 
 .fav-btn:hover{
@@ -137,7 +158,6 @@ display:none;
 min-width:180px;
 transition:0.3s;
 cursor:pointer;
-text-align:center;
 }
 
 .trending-card img{
@@ -147,11 +167,6 @@ border-radius:10px;
 
 .trending-card:hover{
 transform:scale(1.1);
-}
-
-.trending-card p{
-margin-top:8px;
-font-size:14px;
 }
 
 /* SCROLL BUTTON */
@@ -173,13 +188,15 @@ z-index:10;
 /* RATING BADGE */
 
 .rating{
+position:absolute;
+top:10px;
+left:10px;
 background:#facc15;
 color:black;
 padding:5px 10px;
 border-radius:5px;
-display:inline-block;
-margin-bottom:10px;
 font-weight:bold;
+font-size:13px;
 }
 
 /* ERROR MESSAGE */
@@ -190,7 +207,7 @@ font-weight:bold;
 margin-top:20px;
 }
 
-/* FAVORITES GRID */
+/* FAVORITES */
 
 #favoriteMovies{
 display:flex;
@@ -213,14 +230,14 @@ left:0;
 top:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.85);
 }
 
 .modal-content{
 background:#1e293b;
 margin:10% auto;
 padding:20px;
-width:80%;
+width:90%;
 max-width:500px;
 border-radius:10px;
 text-align:center;
@@ -272,7 +289,7 @@ padding:20px;
 }
 
 input{
-width:150px;
+width:180px;
 }
 
 .search-box{
@@ -280,8 +297,8 @@ flex-direction:column;
 align-items:center;
 }
 
-.movie-card{
-width:90%;
+.movie-card img{
+height:250px;
 }
 
 }
