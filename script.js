@@ -21,73 +21,64 @@ return;
 loading.style.display = "block";
 
 fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
-.then(response => response.json())
+.then(res => res.json())
 .then(data => {
 
 loading.style.display = "none";
 
 if(data.Response === "True"){
 
-result.innerHTML = `
-
-<div class="movie-card">
-
-<img src="${data.Poster}" alt="${data.Title}">
-
-<h2>${data.Title}</h2>
-
-<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
-❤️ Add to Favorites
-</button>
-
-<div class="rating">⭐ IMDb ${data.imdbRating}</div>
-
-<p><b>Year:</b> ${data.Year}</p>
-<p><b>Genre:</b> ${data.Genre}</p>
-<p><b>Director:</b> ${data.Director}</p>
-<p><b>Actors:</b> ${data.Actors}</p>
-
-<p>${data.Plot}</p>
-
-<a href="https://www.youtube.com/results?search_query=${data.Title}+trailer"
-target="_blank"
-class="trailer-btn">▶ Watch Trailer</a>
-
-</div>
-`;
+result.innerHTML = createMovieCard(data);
 
 }else{
 error.innerHTML = "❌ Movie not found";
 }
 
 })
-.catch(err => {
-
+.catch(() => {
 loading.style.display = "none";
 error.innerHTML = "⚠️ Error fetching movie data";
-
 });
 
+}
+
+
+/* 🎬 CREATE MOVIE CARD (NEW 🔥) */
+
+function createMovieCard(data){
+return `
+<div class="movie-card" onclick="openMovie('${data.Title}')">
+
+<img src="${data.Poster}" alt="${data.Title}">
+
+<div class="rating">⭐ ${data.imdbRating}</div>
+
+<div class="movie-overlay">
+  <h4>${data.Title}</h4>
+  <button class="fav-btn" onclick="event.stopPropagation(); addToFavorites('${data.Title}')">
+  ❤️ Favorite
+  </button>
+</div>
+
+</div>
+`;
 }
 
 
 /* ENTER KEY SEARCH */
 
-document.getElementById("movieInput").addEventListener("keypress", function(event){
-
-if(event.key === "Enter"){
+document.getElementById("movieInput").addEventListener("keypress", function(e){
+if(e.key === "Enter"){
 searchMovie();
 }
-
 });
 
 
-/* LOAD MOVIES FUNCTION */
+/* LOAD MOVIES */
 
 function loadMovies(movieList){
 
 const container = document.getElementById("trendingMovies");
-
 container.innerHTML = "";
 
 movieList.forEach(movie => {
@@ -99,14 +90,12 @@ fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 if(data.Response === "True" && data.Poster !== "N/A"){
 
 container.innerHTML += `
-
 <div class="trending-card" onclick="openMovie('${data.Title}')">
 
-<img src="${data.Poster}" alt="${data.Title}">
+<img src="${data.Poster}">
 <p>${data.Title}</p>
 
 </div>
-
 `;
 
 }
@@ -118,17 +107,13 @@ container.innerHTML += `
 }
 
 
-/* TRENDING MOVIES */
+/* TRENDING */
 
 function loadTrendingMovies(){
 
 const movies = [
-"avatar",
-"avengers",
-"doctor strange",
-"spiderman",
-"interstellar",
-"joker"
+"avatar","avengers","doctor strange","spiderman",
+"interstellar","joker"
 ];
 
 loadMovies(movies);
@@ -136,7 +121,7 @@ loadMovies(movies);
 }
 
 
-/* MOVIE CATEGORIES */
+/* CATEGORIES */
 
 function loadCategory(type){
 
@@ -167,12 +152,12 @@ loadMovies(movies);
 }
 
 
-/* LOAD TRENDING MOVIES ON START */
+/* LOAD TRENDING */
 
 loadTrendingMovies();
 
 
-/* OPEN MOVIE MODAL */
+/* 🎬 OPEN MODAL (UPGRADED 🔥) */
 
 function openMovie(title){
 
@@ -184,14 +169,9 @@ const modal = document.getElementById("movieModal");
 const details = document.getElementById("modalDetails");
 
 details.innerHTML = `
-
-<img src="${data.Poster}" alt="${data.Title}">
+<img src="${data.Poster}">
 
 <h2>${data.Title}</h2>
-
-<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
-❤️ Add to Favorites
-</button>
 
 <div class="rating">⭐ IMDb ${data.imdbRating}</div>
 
@@ -202,10 +182,15 @@ details.innerHTML = `
 
 <p>${data.Plot}</p>
 
+<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
+❤️ Add to Favorites
+</button>
+
+<br>
+
 <a href="https://www.youtube.com/results?search_query=${data.Title}+trailer"
 target="_blank"
 class="trailer-btn">▶ Watch Trailer</a>
-
 `;
 
 modal.style.display = "block";
@@ -217,54 +202,32 @@ modal.style.display = "block";
 
 /* CLOSE MODAL */
 
-const closeBtn = document.querySelector(".close");
-
-if(closeBtn){
-
-closeBtn.onclick = function(){
+function closeModal(){
 document.getElementById("movieModal").style.display = "none";
-};
-
 }
 
-
-/* CLOSE MODAL WHEN CLICK OUTSIDE */
-
-window.onclick = function(event){
-
+window.onclick = function(e){
 const modal = document.getElementById("movieModal");
-
-if(event.target === modal){
+if(e.target === modal){
 modal.style.display = "none";
 }
-
 };
 
 
-/* NETFLIX STYLE SLIDER */
+/* SLIDER */
 
 function scrollLeft(){
-
 document.getElementById("trendingMovies")
-.scrollBy({
-left:-400,
-behavior:"smooth"
-});
-
+.scrollBy({ left:-400, behavior:"smooth" });
 }
 
 function scrollRight(){
-
 document.getElementById("trendingMovies")
-.scrollBy({
-left:400,
-behavior:"smooth"
-});
-
+.scrollBy({ left:400, behavior:"smooth" });
 }
 
 
-/******** ❤️ FAVORITES SYSTEM ********/
+/* ❤️ FAVORITES */
 
 function addToFavorites(title){
 
@@ -287,7 +250,6 @@ alert("⚠️ Already in Favorites");
 function loadFavorites(){
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
 const container = document.getElementById("favoriteMovies");
 
 if(!container) return;
@@ -303,14 +265,10 @@ fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
 if(data.Response === "True"){
 
 container.innerHTML += `
-
 <div class="trending-card" onclick="openMovie('${data.Title}')">
-
 <img src="${data.Poster}">
 <p>${data.Title}</p>
-
 </div>
-
 `;
 
 }
