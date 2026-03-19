@@ -1,140 +1,327 @@
 const apiKey = "176d2a6b";
 
-/* SEARCH */
+/* SEARCH MOVIE */
+
 function searchMovie(){
+
 const movie = document.getElementById("movieInput").value.trim();
+
 const result = document.getElementById("movieResult");
+const loading = document.getElementById("loading");
 const error = document.getElementById("error");
 
-error.innerHTML="";
-result.innerHTML="";
+error.innerHTML = "";
+result.innerHTML = "";
 
-if(movie===""){
-error.innerHTML="⚠️ Enter movie name";
+if(movie === ""){
+error.innerHTML = "⚠️ Please enter a movie name";
 return;
 }
 
+loading.style.display = "block";
+
 fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
-.then(r=>r.json())
-.then(d=>{
-if(d.Response==="True"){
-result.innerHTML=createCard(d);
-}else{
-error.innerHTML="❌ Movie not found";
-}
-});
-}
+.then(response => response.json())
+.then(data => {
 
-/* CARD */
-function createCard(d){
-return `
+loading.style.display = "none";
+
+if(data.Response === "True"){
+
+result.innerHTML = `
+
 <div class="movie-card">
-<img src="${d.Poster}" onclick="openMovie('${d.imdbID}')">
-<div class="rating">⭐ ${d.imdbRating}</div>
-<div class="movie-overlay">
-<h4>${d.Title}</h4>
-<button class="fav-btn" onclick="event.stopPropagation(); addToFavorites('${d.imdbID}')">❤️</button>
+
+<img src="${data.Poster}" alt="${data.Title}">
+
+<h2>${data.Title}</h2>
+
+<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
+❤️ Add to Favorites
+</button>
+
+<div class="rating">⭐ IMDb ${data.imdbRating}</div>
+
+<p><b>Year:</b> ${data.Year}</p>
+<p><b>Genre:</b> ${data.Genre}</p>
+<p><b>Director:</b> ${data.Director}</p>
+<p><b>Actors:</b> ${data.Actors}</p>
+
+<p>${data.Plot}</p>
+
+<a href="https://www.youtube.com/results?search_query=${data.Title}+trailer"
+target="_blank"
+class="trailer-btn">▶ Watch Trailer</a>
+
 </div>
-</div>`;
-}
-
-/* TRENDING */
-function loadTrendingMovies(){
-["The Avengers","Avatar","Joker","Interstellar"].forEach(m=>{
-fetch(`https://www.omdbapi.com/?t=${m}&apikey=${apiKey}`)
-.then(r=>r.json())
-.then(d=>{
-if(d.Response==="True"){
-document.getElementById("trendingMovies").innerHTML+=createCard(d);
-}
-});
-});
-}
-
-/* CATEGORY */
-function loadCategory(type){
-let movies=[];
-
-if(type==="popular") movies=["Titanic","Inception","Gladiator"];
-if(type==="top") movies=["The Godfather","Forrest Gump"];
-if(type==="action") movies=["John Wick","Mad Max"];
-if(type==="comedy") movies=["Mr Bean","Home Alone"];
-if(type==="trending") movies=["The Avengers","Avatar"];
-
-const container=document.getElementById("trendingMovies");
-container.innerHTML="";
-
-movies.forEach(m=>{
-fetch(`https://www.omdbapi.com/?t=${m}&apikey=${apiKey}`)
-.then(r=>r.json())
-.then(d=>{
-container.innerHTML+=createCard(d);
-});
-});
-}
-
-/* MODAL */
-function openMovie(id){
-fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apiKey}`)
-.then(r=>r.json())
-.then(d=>{
-
-document.getElementById("modalDetails").innerHTML=`
-<img src="${d.Poster}">
-<h2>${d.Title}</h2>
-<p><b>Year:</b> ${d.Year}</p>
-<p><b>Genre:</b> ${d.Genre}</p>
-<p><b>Director:</b> ${d.Director}</p>
-<p><b>Actors:</b> ${d.Actors}</p>
-<p>${d.Plot}</p>
 `;
 
-document.getElementById("movieModal").style.display="block";
+}else{
+error.innerHTML = "❌ Movie not found";
+}
+
+})
+.catch(err => {
+
+loading.style.display = "none";
+error.innerHTML = "⚠️ Error fetching movie data";
+
 });
+
 }
 
-/* CLOSE */
-function closeModal(){
-document.getElementById("movieModal").style.display="none";
+
+/* ENTER KEY SEARCH */
+
+document.getElementById("movieInput").addEventListener("keypress", function(event){
+
+if(event.key === "Enter"){
+searchMovie();
 }
 
-/* FAVORITES */
-function addToFavorites(id){
-let fav=JSON.parse(localStorage.getItem("fav"))||[];
-if(!fav.includes(id)){
-fav.push(id);
-localStorage.setItem("fav",JSON.stringify(fav));
+});
+
+
+/* LOAD MOVIES FUNCTION */
+
+function loadMovies(movieList){
+
+const container = document.getElementById("trendingMovies");
+
+container.innerHTML = "";
+
+movieList.forEach(movie => {
+
+fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
+.then(res => res.json())
+.then(data => {
+
+if(data.Response === "True" && data.Poster !== "N/A"){
+
+container.innerHTML += `
+
+<div class="trending-card" onclick="openMovie('${data.Title}')">
+
+<img src="${data.Poster}" alt="${data.Title}">
+<p>${data.Title}</p>
+
+</div>
+
+`;
+
+}
+
+});
+
+});
+
+}
+
+
+/* TRENDING MOVIES */
+
+function loadTrendingMovies(){
+
+const movies = [
+"avatar",
+"avengers",
+"doctor strange",
+"spiderman",
+"interstellar",
+"joker"
+];
+
+loadMovies(movies);
+
+}
+
+
+/* MOVIE CATEGORIES */
+
+function loadCategory(type){
+
+let movies = [];
+
+if(type === "trending"){
+movies = ["avatar","avengers","joker","spiderman","interstellar","batman"];
+}
+
+if(type === "popular"){
+movies = ["titanic","inception","gladiator","dark knight","fight club","matrix"];
+}
+
+if(type === "top"){
+movies = ["shawshank redemption","godfather","pulp fiction","forrest gump","lord of the rings"];
+}
+
+if(type === "action"){
+movies = ["john wick","mad max","mission impossible","terminator","die hard"];
+}
+
+if(type === "comedy"){
+movies = ["the mask","hangover","superbad","home alone","ted","mr bean"];
+}
+
+loadMovies(movies);
+
+}
+
+
+/* LOAD TRENDING MOVIES ON START */
+
+loadTrendingMovies();
+
+
+/* OPEN MOVIE MODAL */
+
+function openMovie(title){
+
+fetch(`https://www.omdbapi.com/?t=${title}&apikey=${apiKey}`)
+.then(res => res.json())
+.then(data => {
+
+const modal = document.getElementById("movieModal");
+const details = document.getElementById("modalDetails");
+
+details.innerHTML = `
+
+<img src="${data.Poster}" alt="${data.Title}">
+
+<h2>${data.Title}</h2>
+
+<button onclick="addToFavorites('${data.Title}')" class="fav-btn">
+❤️ Add to Favorites
+</button>
+
+<div class="rating">⭐ IMDb ${data.imdbRating}</div>
+
+<p><b>Year:</b> ${data.Year}</p>
+<p><b>Genre:</b> ${data.Genre}</p>
+<p><b>Director:</b> ${data.Director}</p>
+<p><b>Actors:</b> ${data.Actors}</p>
+
+<p>${data.Plot}</p>
+
+<a href="https://www.youtube.com/results?search_query=${data.Title}+trailer"
+target="_blank"
+class="trailer-btn">▶ Watch Trailer</a>
+
+`;
+
+modal.style.display = "block";
+
+});
+
+}
+
+
+/* CLOSE MODAL */
+
+const closeBtn = document.querySelector(".close");
+
+if(closeBtn){
+
+closeBtn.onclick = function(){
+document.getElementById("movieModal").style.display = "none";
+};
+
+}
+
+
+/* CLOSE MODAL WHEN CLICK OUTSIDE */
+
+window.onclick = function(event){
+
+const modal = document.getElementById("movieModal");
+
+if(event.target === modal){
+modal.style.display = "none";
+}
+
+};
+
+
+/* NETFLIX STYLE SLIDER */
+
+function scrollLeft(){
+
+document.getElementById("trendingMovies")
+.scrollBy({
+left:-400,
+behavior:"smooth"
+});
+
+}
+
+function scrollRight(){
+
+document.getElementById("trendingMovies")
+.scrollBy({
+left:400,
+behavior:"smooth"
+});
+
+}
+
+
+/******** ❤️ FAVORITES SYSTEM ********/
+
+function addToFavorites(title){
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+if(!favorites.includes(title)){
+favorites.push(title);
+localStorage.setItem("favorites", JSON.stringify(favorites));
+alert("✅ Added to Favorites");
 loadFavorites();
+}else{
+alert("⚠️ Already in Favorites");
 }
+
 }
+
+
+/* LOAD FAVORITES */
 
 function loadFavorites(){
-let fav=JSON.parse(localStorage.getItem("fav"))||[];
-const container=document.getElementById("favoriteMovies");
-container.innerHTML="";
-fav.forEach(id=>{
-fetch(`https://www.omdbapi.com/?i=${id}&apikey=${apiKey}`)
-.then(r=>r.json())
-.then(d=>{
-container.innerHTML+=createCard(d);
-});
-});
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+const container = document.getElementById("favoriteMovies");
+
+if(!container) return;
+
+container.innerHTML = "";
+
+favorites.forEach(movie => {
+
+fetch(`https://www.omdbapi.com/?t=${movie}&apikey=${apiKey}`)
+.then(res => res.json())
+.then(data => {
+
+if(data.Response === "True"){
+
+container.innerHTML += `
+
+<div class="trending-card" onclick="openMovie('${data.Title}')">
+
+<img src="${data.Poster}">
+<p>${data.Title}</p>
+
+</div>
+
+`;
+
 }
 
-/* SCROLL */
-function scrollLeft(){
-document.getElementById("trendingMovies").scrollBy({left:-400,behavior:"smooth"});
-}
-function scrollRight(){
-document.getElementById("trendingMovies").scrollBy({left:400,behavior:"smooth"});
+});
+
+});
+
 }
 
-/* START */
-loadTrendingMovies();
+
+/* LOAD FAVORITES ON START */
+
 loadFavorites();
-
-/* ENTER */
-document.getElementById("movieInput")
-.addEventListener("keypress",e=>{
-if(e.key==="Enter") searchMovie();
-});
