@@ -38,6 +38,19 @@ button:hover{
 background:#1d4ed8;
 transform:scale(1.05);
 }
+.modal-content p{
+color:white;
+margin:5px 0;
+font-size:14px;
+}
+
+.modal-content h2{
+color:white;
+}
+
+.modal-content{
+text-align:left;
+}
 
 /* CATEGORIES */
 
