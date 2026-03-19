@@ -59,6 +59,9 @@ flex-wrap:wrap;
 background:#2563eb;
 padding:8px 14px;
 border-radius:6px;
+border:none;
+color:white;
+cursor:pointer;
 }
 
 .categories button:hover{
@@ -89,8 +92,12 @@ cursor:pointer;
 transform:scale(1.05);
 }
 
+/* 🔥 FIXED IMAGE */
+
 .movie-card img{
 width:100%;
+height:300px;
+object-fit:cover;
 border-radius:10px;
 margin-bottom:10px;
 }
@@ -140,13 +147,18 @@ cursor:pointer;
 text-align:center;
 }
 
+/* 🔥 FIXED TRENDING IMAGE */
+
 .trending-card img{
 width:100%;
+height:260px;
+object-fit:cover;
 border-radius:10px;
+transition:0.3s;
 }
 
-.trending-card:hover{
-transform:scale(1.1);
+.trending-card:hover img{
+transform:scale(1.05);
 }
 
 .trending-card p{
@@ -190,7 +202,7 @@ font-weight:bold;
 margin-top:20px;
 }
 
-/* FAVORITES GRID */
+/* FAVORITES */
 
 #favoriteMovies{
 display:flex;
@@ -234,6 +246,8 @@ to{opacity:1; transform:scale(1);}
 
 .modal-content img{
 width:100%;
+height:300px;
+object-fit:cover;
 border-radius:10px;
 margin-bottom:10px;
 }
